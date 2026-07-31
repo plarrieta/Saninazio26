@@ -2,207 +2,54 @@
 <html lang="eu">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#09090b">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#0b0b0d">
 <title>SANINAZIO 26 · KANTUAK</title>
 <style>
-:root{--bg:#09090b;--panel:#17171b;--panel2:#24242a;--text:#fff;--muted:#b7b7c1;--accent:#ffd84d;--line:#3b3b45}
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
-button,input{font:inherit}
-button{cursor:pointer}
-.wrap{max-width:900px;margin:auto}
-header{position:sticky;top:0;z-index:10;background:#121216;border-bottom:1px solid var(--line);padding:19px 16px}
-.brand{display:flex;justify-content:space-between;align-items:center;gap:12px}
-h1{margin:0;font-size:32px}.yellow{color:var(--accent)}
-.subtitle{color:var(--muted);margin-top:4px}
-.help{width:48px;height:48px;border-radius:14px;border:1px solid #4b4b56;background:#24242a;color:#fff;font-size:22px;font-weight:900}
-main{padding:19px 15px 42px}
-.hero,.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px}
-.hero h2{margin:0 0 5px;font-size:28px}.lead{color:var(--muted);margin-bottom:17px}
-label{display:block;font-weight:850;margin-bottom:8px}
-input{width:100%;padding:17px 15px;border-radius:14px;border:1px solid #666670;background:#29292f;color:#fff;font-size:20px}
-input:focus,button:focus{outline:4px solid var(--accent);outline-offset:2px}
-.row{display:grid;grid-template-columns:1fr auto auto;gap:9px;margin-top:11px}
-.btn{border:0;border-radius:14px;min-height:54px;padding:13px 15px;font-weight:900;font-size:16px}
-.primary{background:var(--accent);color:#111}.secondary{background:#29292f;color:#fff;border:1px solid #4b4b56}
-.icon{width:57px;font-size:23px}
-.status{display:none;margin-top:13px;padding:12px 14px;border-radius:12px;background:#202027;border:1px solid var(--line);color:#ddd}
-.tabs{display:flex;gap:8px;overflow:auto;margin:21px 0 12px}
-.tab{white-space:nowrap;border-radius:12px;border:1px solid var(--line);background:#202027;color:#ddd;padding:10px 14px;font-weight:850}
-.tab.active{background:#fff;color:#111}
-.section{display:none}.section.active{display:block}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.source{background:var(--panel2);color:#fff;border:1px solid #4b4b56;border-radius:15px;padding:14px;text-align:left;display:flex;align-items:center;gap:11px;min-height:72px}
-.source b{display:block}.source small{display:block;color:#bdbdc7;margin-top:4px}.source .emoji{font-size:25px}.full{grid-column:1/-1}
-.list{display:grid;gap:9px}.item{display:grid;grid-template-columns:1fr auto auto;gap:8px}
-.item-main,.small{background:#202027;color:#fff;border:1px solid var(--line);border-radius:13px;min-height:51px}
-.item-main{text-align:left;padding:11px 14px}.small{width:49px;font-weight:900}.empty{color:#888893;padding:10px 2px}
-.title-row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:13px}.title-row h2{margin:0;font-size:21px}
-.mini{border:1px solid #4b4b56;background:#29292f;color:#fff;border-radius:10px;padding:9px 11px;font-weight:800}
-.footer{text-align:center;color:#777780;margin-top:27px;font-size:13px}
-
-/* KANTUAN */
-#singMode{position:fixed;inset:0;z-index:100;background:#000;display:none;overflow:auto}
-#singMode.open{display:block}
-.sing-top{position:sticky;top:0;background:rgba(0,0,0,.94);border-bottom:1px solid #333;padding:12px;display:flex;gap:9px;align-items:center;z-index:2}
-.sing-top .song{flex:1;font-size:19px;font-weight:900;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.sing-body{max-width:800px;margin:auto;padding:35px 16px 80px;text-align:center}
-.sing-body h2{font-size:32px;margin:0 0 10px}.sing-body p{color:#bbb;line-height:1.5;margin:0 auto 24px;max-width:650px}
-.sing-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.sing-source{min-height:82px;border-radius:16px;background:#18181d;color:#fff;border:1px solid #4b4b56;font-size:18px;font-weight:900}
-.sing-general{grid-column:1/-1;background:var(--accent);color:#111}
-.exit{background:#29292f;color:#fff;border:1px solid #555;border-radius:12px;padding:10px 13px;font-weight:900}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.76);display:none;align-items:flex-end;z-index:120}.modal.open{display:flex}
-.sheet{width:100%;max-height:88vh;overflow:auto;background:#18181d;border-radius:22px 22px 0 0;border:1px solid var(--line);padding:20px 18px 28px}.sheet h2{margin-top:0}.sheet p{line-height:1.5;color:#ddd}
-@media(max-width:620px){.grid,.sing-grid{grid-template-columns:1fr}.full,.sing-general{grid-column:auto}.row{grid-template-columns:1fr auto}.row .mode-main{grid-column:1/-1}.item{grid-template-columns:1fr auto}.item .remove{display:none}h1{font-size:28px}}
+:root{--bg:#0b0b0d;--panel:#17171b;--panel2:#222228;--text:#fff;--muted:#b8b8c2;--accent:#ffd84d;--line:#3a3a43}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}button,input{font:inherit}button{cursor:pointer}
+header{padding:22px 18px 18px;background:#121216;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}.wrap{max-width:900px;margin:auto}.brand{display:flex;align-items:center;justify-content:space-between;gap:14px}.brand h1{margin:0;font-size:34px;letter-spacing:.4px}.brand h1 span{color:var(--accent)}.subtitle{color:var(--muted);margin-top:5px}.help{width:48px;height:48px;border-radius:14px;border:1px solid #4b4b56;background:#222228;color:#fff;font-size:22px;font-weight:900}
+main{padding:20px 16px 44px}.hero{background:linear-gradient(145deg,#1a1a20,#24242b);border:1px solid var(--line);border-radius:22px;padding:20px}.hero-title{font-size:30px;font-weight:950;margin:0 0 5px}.hero-sub{color:var(--muted);margin-bottom:18px}label{display:block;font-weight:850;margin-bottom:8px}input{width:100%;padding:17px 15px;border-radius:14px;border:1px solid #65656f;background:#29292f;color:#fff;font-size:20px}input:focus,button:focus{outline:4px solid var(--accent);outline-offset:2px}.search-row{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:11px}.btn{border:0;border-radius:14px;min-height:54px;padding:14px 16px;font-size:17px;font-weight:900}.primary{background:var(--accent);color:#111}.secondary{background:#29292f;color:#fff;border:1px solid #4b4b56}.star{width:58px;font-size:25px}.star.active{background:var(--accent);color:#111}.status{display:none;margin-top:14px;background:#202027;border:1px solid var(--line);padding:12px 14px;border-radius:12px;color:#ddd}.quick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:18px}.quick button{background:#24242b;color:#fff;border:1px solid #45454f}
+.tabs{display:flex;gap:8px;overflow:auto;margin:22px 0 12px;padding-bottom:2px}.tab{white-space:nowrap;background:#202027;color:#ddd;border:1px solid var(--line);min-height:44px;padding:10px 14px;border-radius:12px;font-weight:800}.tab.active{background:#fff;color:#111}.section{display:none}.section.active{display:block}.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:17px}.section-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}.section-title h2{margin:0;font-size:22px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.source{background:var(--panel2);color:#fff;border:1px solid #4b4b56;border-radius:14px;padding:14px;text-align:left;display:flex;align-items:center;gap:10px;min-height:70px}.source-icon{font-size:25px}.source small{display:block;color:#bdbdc7;font-weight:normal;margin-top:3px}.full{grid-column:1/-1}.list{display:grid;gap:9px}.item{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center}.item-main{background:#202027;color:#fff;border:1px solid var(--line);border-radius:13px;padding:12px 14px;text-align:left;min-height:52px}.smallbtn{width:49px;min-height:52px;border-radius:13px;background:#202027;color:#ddd;border:1px solid var(--line);font-weight:900}.empty{color:#85858f;padding:10px 2px}.toolbar{display:flex;gap:8px;flex-wrap:wrap}.mini{min-height:42px;padding:9px 12px;border-radius:11px;background:#29292f;color:#fff;border:1px solid #4b4b56;font-weight:800}.random-box{text-align:center;padding:28px 16px;background:#202027;border:1px solid var(--line);border-radius:17px}.random-song{font-size:27px;font-weight:950;margin:12px 0 18px}.modal{position:fixed;inset:0;background:rgba(0,0,0,.76);display:none;align-items:flex-end;z-index:30}.modal.open{display:flex}.sheet{width:100%;max-height:88vh;overflow:auto;background:#18181d;border-radius:22px 22px 0 0;border:1px solid var(--line);padding:20px 18px 28px}.sheet h2{margin-top:0}.steps{line-height:1.55;color:#e8e8ed}.badge{display:inline-block;background:#2b2b31;border:1px solid #4b4b56;border-radius:999px;padding:5px 9px;margin:3px;color:#ddd;font-size:13px}.footer{text-align:center;color:#73737c;margin-top:28px;font-size:13px}
+@media(max-width:620px){.quick{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.full{grid-column:auto}.item{grid-template-columns:1fr auto}.item .remove{display:none}.brand h1{font-size:30px}}
 </style>
 </head>
 <body>
-<header>
-<div class="wrap brand">
-  <div><h1>🎤 <span class="yellow">SANINAZIO 26</span></h1><div class="subtitle">KANTUAK · Abestu, gozatu, elkarrekin</div></div>
-  <button id="helpBtn" class="help">?</button>
-</div>
-</header>
-
+<header><div class="wrap brand"><div><h1>🎤 <span>SANINAZIO 26</span></h1><div class="subtitle">KANTUAK · Abestu, gozatu, elkarrekin</div></div><button id="helpBtn" class="help" aria-label="Laguntza">?</button></div></header>
 <main class="wrap">
-<section class="hero">
-  <h2>Zein abesti kantatuko dugu?</h2>
-  <div class="lead">Bilatu izenburua eta, ahal bada, abeslaria.</div>
-  <label for="q">Abestia</label>
-  <input id="q" placeholder="Adib.: Lau Teilatu Itoiz" autocomplete="off">
-  <div class="row">
-    <button id="directBtn" class="btn primary">⚡ Ireki zuzenean</button>
-    <button id="favBtn" class="btn secondary icon">☆</button>
-    <button id="singBtn" class="btn secondary mode-main">🎤 KANTUAN</button>
-  </div>
-  <div id="status" class="status"></div>
-</section>
-
-<nav class="tabs">
-  <button class="tab active" data-tab="sources">Iturriak</button>
-  <button class="tab" data-tab="favorites">⭐ Gogokoak</button>
-  <button class="tab" data-tab="history">🕘 Historia</button>
-</nav>
-
-<section id="sources" class="section active">
-<div class="card">
-  <div class="title-row"><h2>Ireki iturri batean</h2></div>
-  <div class="grid">
-    <button class="source" data-source="genius"><span class="emoji">🧠</span><span><b>Genius</b><small>Nazioarteko katalogoa</small></span></button>
-    <button class="source" data-source="musixmatch"><span class="emoji">🎼</span><span><b>Musixmatch</b><small>Hizkuntza ugari</small></span></button>
-    <button class="source" data-source="letras"><span class="emoji">🌎</span><span><b>Letras.com</b><small>Gaztelaniaz</small></span></button>
-    <button class="source" data-source="azlyrics"><span class="emoji">🔤</span><span><b>AZLyrics</b><small>Ingelesez</small></span></button>
-    <button class="source" data-source="kantari"><span class="emoji">🔴</span><span><b>Kantari</b><small>Euskaraz</small></span></button>
-    <button class="source" data-source="youtube"><span class="emoji">▶️</span><span><b>YouTube karaokea</b><small>Bideoa eta letra</small></span></button>
-    <button class="source full" data-source="general"><span class="emoji">🌐</span><span><b>Beste emaitza batzuk</b><small>Bilaketa orokorra, aurrekoek huts egiten badute</small></span></button>
-  </div>
-</div>
-</section>
-
-<section id="favorites" class="section"><div class="card"><div class="title-row"><h2>Gogokoak</h2></div><div id="favoritesList" class="list"></div></div></section>
-<section id="history" class="section"><div class="card"><div class="title-row"><h2>Historia</h2><button id="clearHistory" class="mini">Garbitu</button></div><div id="historyList" class="list"></div></div></section>
-<div class="footer">SANINAZIO 26 · KANTUAK v4</div>
+<section class="hero"><div class="hero-title">Zein abesti kantatuko dugu?</div><div class="hero-sub">Bilatu izenburua edo idatzi abeslariaren izena ere.</div><label for="q">Abestia</label><input id="q" placeholder="Adib.: Lau Teilatu Itoiz" autocomplete="off" autofocus><div class="search-row"><button id="searchBtn" class="btn primary">🔎 Bilatu letra</button><button id="favCurrent" class="btn secondary star" aria-label="Gogokoetan gorde">☆</button></div><div class="quick"><button id="quickFav" class="btn">⭐ Gogokoak</button><button id="quickSetlist" class="btn">🎤 Gaurko errepertorioa</button><button id="quickRandom" class="btn">🎲 Ausazko abestia</button></div><div id="status" class="status"></div></section>
+<nav class="tabs"><button class="tab active" data-tab="sources">Iturriak</button><button class="tab" data-tab="setlist">🎤 Errepertorioa</button><button class="tab" data-tab="favorites">⭐ Gogokoak</button><button class="tab" data-tab="history">🕘 Historia</button><button class="tab" data-tab="random">🎲 Ausaz</button></nav>
+<section id="sources" class="section active"><div class="card"><div class="section-title"><h2>Bilaketa-iturriak</h2></div><div class="grid">
+<button class="source" data-source="genius"><span class="source-icon">🧠</span><div>Genius<small>Nazioarteko katalogoa</small></div></button>
+<button class="source" data-source="musixmatch"><span class="source-icon">🎼</span><div>Musixmatch<small>Hizkuntza eta abesti ugari</small></div></button>
+<button class="source" data-source="letras"><span class="source-icon">🌎</span><div>Letras.com<small>Gaztelaniazko abestiak</small></div></button>
+<button class="source" data-source="azlyrics"><span class="source-icon">🔤</span><div>AZLyrics<small>Ingelesezko abestiak</small></div></button>
+<button class="source" data-source="kantari"><span class="source-icon">🔴</span><div>Kantari<small>Euskarazko abestiak</small></div></button>
+<button class="source" data-source="youtube"><span class="source-icon">▶️</span><div>YouTube karaokea<small>Bideoak eta letrak</small></div></button>
+<button class="source full" data-source="google"><span class="source-icon">🌐</span><div>Bilaketa orokorra<small>Aukerarik unibertsalena</small></div></button>
+</div></div></section>
+<section id="setlist" class="section"><div class="card"><div class="section-title"><h2>Gaurko errepertorioa</h2><div class="toolbar"><button id="addSetlist" class="mini">＋ Gehitu</button><button id="clearSetlist" class="mini">Garbitu</button></div></div><div id="setlistList" class="list"></div></div></section>
+<section id="favorites" class="section"><div class="card"><div class="section-title"><h2>Gogoko abestiak</h2></div><div id="favoritesList" class="list"></div></div></section>
+<section id="history" class="section"><div class="card"><div class="section-title"><h2>Bilaketen historia</h2><button id="clearHistory" class="mini">Garbitu</button></div><div id="historyList" class="list"></div></div></section>
+<section id="random" class="section"><div class="card"><div class="section-title"><h2>Ausazko abestia</h2></div><div class="random-box"><div>Errepertorioko edo gogokoetako abesti bat aukeratuko da.</div><div id="randomSong" class="random-song">🎵</div><div class="toolbar" style="justify-content:center"><button id="pickRandom" class="btn primary">🎲 Aukeratu</button><button id="openRandom" class="btn secondary">🔎 Bilatu</button></div></div></div></section>
+<div class="footer">SANINAZIO 26 · KANTUAK v3</div>
 </main>
-
-<div id="singMode">
-  <div class="sing-top">
-    <div id="singSong" class="song">Abestia</div>
-    <button id="exitSing" class="exit">✕ Irten</button>
-  </div>
-  <div class="sing-body">
-    <h2>🎤 KANTUAN</h2>
-    <p>Aukeratu letra non ireki. LETRAK pantaila osoko moduan dago; kanpoko webguneak bere diseinua mantenduko du.</p>
-    <div class="sing-grid">
-      <button class="sing-source" data-sing-source="genius">🧠 Genius</button>
-      <button class="sing-source" data-sing-source="musixmatch">🎼 Musixmatch</button>
-      <button class="sing-source" data-sing-source="letras">🌎 Letras.com</button>
-      <button class="sing-source" data-sing-source="kantari">🔴 Kantari</button>
-      <button class="sing-source" data-sing-source="youtube">▶️ YouTube karaokea</button>
-      <button class="sing-source" data-sing-source="azlyrics">🔤 AZLyrics</button>
-      <button class="sing-source sing-general" data-sing-source="general">🌐 Beste emaitza batzuk</button>
-    </div>
-  </div>
-</div>
-
-<div id="helpModal" class="modal">
-<div class="sheet">
-  <h2>Bi hobekuntza</h2>
-  <p><strong>⚡ Ireki zuzenean:</strong> Googleko emaitzen pantaila saihesten saiatzen da eta Genius-en bilatzailea irekitzen du zuzenean. Beste iturri bat nahi baduzu, sakatu haren botoia.</p>
-  <p><strong>🎤 KANTUAN:</strong> LETRAKeko menu guztiak ezkutatzen ditu eta iturriak pantaila osoan erakusten ditu. Segurtasun-arrazoiengatik, LETRAKek ezin ditu kanpoko webgune baten publizitatea edo goiburua ezabatu.</p>
-  <button id="closeHelp" class="btn primary" style="width:100%">Ulertuta</button>
-</div>
-</div>
-
+<div id="helpModal" class="modal" role="dialog" aria-modal="true"><div class="sheet"><h2>Nola erabili</h2><div class="steps"><p><strong>Mugikorrean:</strong> bilatu abestia, ireki letra eta mugitu pantaila hatzarekin.</p><p><strong>Fire TVn:</strong> aktibatu pantaila-bikoizketa.</p><p><span class="badge">Ezarpenak</span><span class="badge">Pantaila eta soinua</span><span class="badge">Pantaila bikoiztea</span></p><p>Fire TVk mugikorrean ikusten duzun gauza bera erakutsiko du proiektorean.</p></div><button id="closeHelp" class="btn primary" style="width:100%">Ulertuta</button></div></div>
 <script>
-const q=document.getElementById('q'), statusBox=document.getElementById('status');
-const favBtn=document.getElementById('favBtn');
-const H='saninazio26_v4_history', F='saninazio26_v4_favorites';
-
-function load(k){try{return JSON.parse(localStorage.getItem(k)||'[]')}catch{return[]}}
-function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
-function clean(s){return s.trim().replace(/\s+/g,' ')}
-function same(a,b){return a.toLowerCase()===b.toLowerCase()}
-function status(t){statusBox.textContent=t;statusBox.style.display='block'}
-function query(){const t=clean(q.value);if(!t){status('Idatzi lehenik abestiaren izena.');q.focus();return null}return t}
-function addHistory(t){let a=load(H).filter(x=>!same(x,t));a.unshift(t);save(H,a.slice(0,25));render()}
-function isFav(t){return load(F).some(x=>same(x,clean(t)))}
-function updateStar(){const yes=isFav(q.value);favBtn.textContent=yes?'★':'☆';favBtn.classList.toggle('primary',yes)}
-function toggleFav(t){t=clean(t);if(!t){q.focus();return}let a=load(F);a=isFav(t)?a.filter(x=>!same(x,t)):[t,...a];save(F,a);updateStar();render();status(isFav(t)?'Gogokoetan gorde da.':'Gogokoetatik kendu da.')}
-function enc(t){return encodeURIComponent(t)}
-function urlFor(source,t){
-  const lyrics=t+' lyrics';
-  switch(source){
-    case 'genius': return 'https://genius.com/search?q='+enc(t);
-    case 'musixmatch': return 'https://www.musixmatch.com/search/'+enc(t);
-    case 'letras': return 'https://www.letras.com/?q='+enc(t);
-    case 'azlyrics': return 'https://search.azlyrics.com/search.php?q='+enc(t);
-    case 'kantari': return 'https://www.google.com/search?q='+enc('site:kantari.eus '+t);
-    case 'youtube': return 'https://www.youtube.com/results?search_query='+enc(t+' karaoke letra');
-    default: return 'https://www.google.com/search?q='+enc(lyrics);
-  }
-}
-function openSource(source,t=null){
-  t=t||query();if(!t)return;
-  q.value=t;addHistory(t);updateStar();
-  status('Irekitzen: '+t);
-  location.href=urlFor(source,t);
-}
-function direct(){const t=query();if(!t)return;openSource('genius',t)}
-function makeItem(t,kind){
-  const r=document.createElement('div');r.className='item';
-  const a=document.createElement('button');a.className='item-main';a.textContent=t;a.onclick=()=>{q.value=t;direct()};
-  const s=document.createElement('button');s.className='small';s.textContent=isFav(t)?'★':'☆';s.onclick=()=>toggleFav(t);
-  const x=document.createElement('button');x.className='small remove';x.textContent='×';x.onclick=()=>{const k=kind==='fav'?F:H;save(k,load(k).filter(v=>v!==t));render();updateStar()};
-  r.append(a,s,x);return r
-}
-function fill(id,k,kind,msg){const e=document.getElementById(id),a=load(k);e.innerHTML='';if(!a.length){e.innerHTML='<div class="empty">'+msg+'</div>';return}a.forEach(t=>e.appendChild(makeItem(t,kind)))}
-function render(){fill('favoritesList',F,'fav','Oraindik ez dago gogokorik.');fill('historyList',H,'hist','Oraindik ez dago bilaketarik.')}
-async function enterSing(){
-  const t=query();if(!t)return;
-  document.getElementById('singSong').textContent=t;
-  document.getElementById('singMode').classList.add('open');
-  try{if(document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen()}catch(e){}
-}
-async function exitSing(){
-  document.getElementById('singMode').classList.remove('open');
-  try{if(document.fullscreenElement)await document.exitFullscreen()}catch(e){}
-}
-document.getElementById('directBtn').onclick=direct;
-document.getElementById('singBtn').onclick=enterSing;
-document.getElementById('exitSing').onclick=exitSing;
-favBtn.onclick=()=>toggleFav(q.value);
-q.oninput=updateStar;q.onkeydown=e=>{if(e.key==='Enter')direct()};
-document.querySelectorAll('[data-source]').forEach(b=>b.onclick=()=>openSource(b.dataset.source));
-document.querySelectorAll('[data-sing-source]').forEach(b=>b.onclick=()=>openSource(b.dataset.singSource,document.getElementById('singSong').textContent));
-document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.section').forEach(x=>x.classList.toggle('active',x.id===b.dataset.tab))});
-document.getElementById('clearHistory').onclick=()=>{if(confirm('Historia ezabatu?')){save(H,[]);render()}};
-const modal=document.getElementById('helpModal');
-document.getElementById('helpBtn').onclick=()=>modal.classList.add('open');
-document.getElementById('closeHelp').onclick=()=>modal.classList.remove('open');
-modal.onclick=e=>{if(e.target===modal)modal.classList.remove('open')};
-render();updateStar();
+const q=document.getElementById('q'),statusBox=document.getElementById('status'),favCurrent=document.getElementById('favCurrent'),historyList=document.getElementById('historyList'),favoritesList=document.getElementById('favoritesList'),setlistList=document.getElementById('setlistList'),randomSong=document.getElementById('randomSong');
+const HISTORY_KEY='saninazio26_history',FAVORITES_KEY='saninazio26_favorites',SETLIST_KEY='saninazio26_setlist';
+const defaultSetlist=['Lau Teilatu - Itoiz','Txoria Txori - Mikel Laboa','Imagine - John Lennon','Bella Ciao','La Bamba'];
+const searches={google:t=>`${t} letra lyrics`,genius:t=>`site:genius.com ${t} lyrics`,musixmatch:t=>`site:musixmatch.com ${t} lyrics`,letras:t=>`site:letras.com ${t} letra`,azlyrics:t=>`site:azlyrics.com ${t} lyrics`,kantari:t=>`site:kantari.eus ${t}`,youtube:t=>`site:youtube.com ${t} karaoke letra`};
+function load(k,f=[]){try{const v=JSON.parse(localStorage.getItem(k));return Array.isArray(v)?v:f}catch{return f}}function save(k,l){localStorage.setItem(k,JSON.stringify(l))}function normalize(s){return s.trim().replace(/\s+/g,' ')}function same(a,b){return a.toLowerCase()===b.toLowerCase()}
+if(!localStorage.getItem(SETLIST_KEY))save(SETLIST_KEY,defaultSetlist);
+function showStatus(t){statusBox.textContent=t;statusBox.style.display='block'}function addHistory(t){let l=load(HISTORY_KEY).filter(x=>!same(x,t));l.unshift(t);save(HISTORY_KEY,l.slice(0,25));renderHistory()}function isFavorite(t){return load(FAVORITES_KEY).some(x=>same(x,normalize(t)))}function updateFavButton(){const a=isFavorite(q.value);favCurrent.textContent=a?'★':'☆';favCurrent.classList.toggle('active',a)}
+function toggleFavorite(t){t=normalize(t);if(!t){q.focus();return}let l=load(FAVORITES_KEY),e=l.some(x=>same(x,t));l=e?l.filter(x=>!same(x,t)):[t,...l];save(FAVORITES_KEY,l);updateFavButton();renderFavorites();showStatus(e?'Gogokoetatik kendu da.':'Gogokoetan gorde da.')}
+function addToSetlist(t){t=normalize(t);if(!t){showStatus('Idatzi lehenik abesti baten izena.');q.focus();return}let l=load(SETLIST_KEY);if(!l.some(x=>same(x,t))){l.push(t);save(SETLIST_KEY,l);renderSetlist();showStatus('Errepertorioan gehitu da.')}else showStatus('Abestia dagoeneko errepertorioan dago.')}
+function openSearch(s='google',forced=null){const t=normalize(forced??q.value);if(!t){showStatus('Idatzi lehenik abesti baten izenburua.');q.focus();return}q.value=t;addHistory(t);updateFavButton();showStatus('Emaitzak irekitzen: '+t);window.location.href='https://www.google.com/search?q='+encodeURIComponent(searches[s](t))}
+function showTab(id){document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x.dataset.tab===id));document.querySelectorAll('.section').forEach(x=>x.classList.toggle('active',x.id===id));window.scrollTo({top:document.querySelector('.tabs').offsetTop-80,behavior:'smooth'})}
+function makeItem(t,k){const r=document.createElement('div');r.className='item';const o=document.createElement('button');o.className='item-main';o.textContent=t;o.onclick=()=>openSearch('google',t);const s=document.createElement('button');s.className='smallbtn';s.textContent=isFavorite(t)?'★':'☆';s.onclick=()=>toggleFavorite(t);const d=document.createElement('button');d.className='smallbtn remove';d.textContent='×';d.onclick=()=>{const key=k==='history'?HISTORY_KEY:k==='favorites'?FAVORITES_KEY:SETLIST_KEY;save(key,load(key).filter(x=>x!==t));renderAll();updateFavButton()};r.append(o,s,d);return r}
+function renderList(target,key,kind,empty){const l=load(key);target.innerHTML='';if(!l.length){target.innerHTML=`<div class="empty">${empty}</div>`;return}l.forEach(t=>target.appendChild(makeItem(t,kind)))}function renderHistory(){renderList(historyList,HISTORY_KEY,'history','Oraindik ez dago bilaketarik.')}function renderFavorites(){renderList(favoritesList,FAVORITES_KEY,'favorites','Oraindik ez duzu gogoko abestirik gorde.')}function renderSetlist(){renderList(setlistList,SETLIST_KEY,'setlist','Errepertorioa hutsik dago.')}function renderAll(){renderHistory();renderFavorites();renderSetlist()}
+function chooseRandom(){const p=[...load(SETLIST_KEY),...load(FAVORITES_KEY)],u=p.filter((x,i,a)=>a.findIndex(y=>same(x,y))===i);if(!u.length){randomSong.textContent='Ez dago abestirik';return}const song=u[Math.floor(Math.random()*u.length)];randomSong.textContent=song;randomSong.dataset.song=song}
+document.getElementById('searchBtn').onclick=()=>openSearch('google');favCurrent.onclick=()=>toggleFavorite(q.value);q.addEventListener('input',updateFavButton);q.addEventListener('keydown',e=>{if(e.key==='Enter')openSearch('google')});document.querySelectorAll('[data-source]').forEach(b=>b.onclick=()=>openSearch(b.dataset.source));document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>showTab(b.dataset.tab));document.getElementById('quickFav').onclick=()=>showTab('favorites');document.getElementById('quickSetlist').onclick=()=>showTab('setlist');document.getElementById('quickRandom').onclick=()=>{showTab('random');chooseRandom()};document.getElementById('addSetlist').onclick=()=>{const t=prompt('Idatzi abestiaren izenburua eta, nahi baduzu, abeslaria:');if(t)addToSetlist(t)};document.getElementById('clearSetlist').onclick=()=>{if(confirm('Errepertorio osoa ezabatu?')){save(SETLIST_KEY,[]);renderSetlist()}};document.getElementById('clearHistory').onclick=()=>{if(confirm('Bilaketen historia ezabatu?')){save(HISTORY_KEY,[]);renderHistory()}};document.getElementById('pickRandom').onclick=chooseRandom;document.getElementById('openRandom').onclick=()=>{const s=randomSong.dataset.song;if(s)openSearch('google',s);else chooseRandom()};const modal=document.getElementById('helpModal');document.getElementById('helpBtn').onclick=()=>modal.classList.add('open');document.getElementById('closeHelp').onclick=()=>modal.classList.remove('open');modal.onclick=e=>{if(e.target===modal)modal.classList.remove('open')};renderAll();updateFavButton();
 </script>
-</body>
-</html>
+</body></html>
