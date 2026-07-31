@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>LETRAK v3 · Buscar letras</title>
+<style>
+:root{
+ --bg:#090909;--panel:#171717;--panel2:#222;--line:#3d3d3d;
+ --text:#f5f5f5;--muted:#b7b7b7;--accent:#ffd23f;--danger:#ff6767;
+ --size:38px
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+button,input,select{font:inherit}
+button,input,select{border-radius:11px}
+button{border:1px solid #555;background:#303030;color:#fff;font-weight:700;padding:14px 17px;cursor:pointer}
+button.primary{background:var(--accent);color:#111;border-color:var(--accent)}
+button:focus,input:focus,select:focus{outline:4px solid var(--accent);outline-offset:2px}
+header{padding:15px 18px;background:#141414;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.brand{font-size:29px;font-weight:900}
+.sub{font-size:14px;color:var(--muted);margin-top:3px}
+main{max-width:1050px;margin:auto;padding:18px}
+.searchbox{display:grid;grid-template-columns:1fr auto;gap:10px}
+input{width:100%;padding:16px;background:#252525;color:#fff;border:1px solid #555;font-size:20px}
+.hint{color:var(--muted);line-height:1.5;margin:13px 2px}
+.status{padding:13px 15px;border-radius:11px;background:#161616;border:1px solid var(--line);color:#ddd;margin:15px 0}
+.results{display:grid;gap:11px}
+.result{
+ width:100%;text-align:left;background:var(--panel);border:1px solid var(--line);
+ padding:16px 18px
+}
+.result-title{font-size:21px;font-weight:900}
+.result-meta{font-size:15px;color:var(--muted);margin-top:6px;line-height:1.4}
+.empty{text-align:center;color:var(--muted);padding:35px;border:2px dashed #414141;border-radius:14px}
+
+/* visor */
+#viewerPage{display:none}
+#searchPage{display:block}
+.stage{height:100vh;overflow-y:auto;scroll-behavior:smooth;padding:0 6vw 30vh;background:#050505}
+.stage.light{background:#fff;color:#111}
+.stage-head{position:sticky;top:0;text-align:center;padding:22px 0 35px;z-index:5;background:linear-gradient(#050505 72%,transparent)}
+.stage.light .stage-head{background:linear-gradient(#fff 72%,transparent)}
+.title{font-size:39px;font-weight:900}
+.artist{font-size:21px;color:#aaa;margin-top:7px}
+.stage.light .artist{color:#555}
+.lyrics{white-space:pre-wrap;text-align:center;font-size:var(--size);line-height:1.55;max-width:1100px;margin:auto}
+.controls{
+ position:fixed;z-index:15;left:50%;bottom:13px;transform:translateX(-50%);
+ display:flex;flex-wrap:wrap;justify-content:center;gap:8px;
+ background:rgba(20,20,20,.95);border:1px solid #555;border-radius:14px;padding:9px;
+ max-width:calc(100vw - 18px)
+}
+.controls button,.controls select{min-height:49px;padding:9px 12px;background:#303030;color:#fff;border:1px solid #555}
+.controls select{width:auto}
+.source{font-size:13px;color:#999;text-align:center;margin-top:40px}
+
+@media(max-width:650px){
+ .searchbox{grid-template-columns:1fr}
+ .lyrics{font-size:calc(var(--size)*.78)}
+ .title{font-size:29px}
+ .controls button{min-width:55px}
+}
+</style>
+</head>
+<body>
+
+<section id="searchPage">
+<header>
+ <div class="brand">🎵 LETRAK v3</div>
+ <div class="sub">Busca una canción y muestra su letra</div>
+</header>
+<main>
+ <div class="searchbox">
+  <input id="query" placeholder="Título o título + cantante…" autocomplete="off">
+  <button id="searchBtn" class="primary">🔍 Buscar</button>
+ </div>
+ <div class="hint">
+   Ejemplos: <b>Imagine John Lennon</b>, <b>Bella Ciao</b>, <b>Txoria txori</b>.
+   Toca un resultado para abrir la letra.
+ </div>
+ <div id="status" class="status">Escribe una canción para comenzar.</div>
+ <button id="webFallback" style="width:100%;margin-bottom:15px;display:none">
+   🌐 Buscar esta canción en la web
+ </button>
+ <div id="results" class="results"></div>
+</main>
+</section>
+
+<section id="viewerPage">
+ <div id="stage" class="stage">
+  <div class="stage-head">
+   <div id="songTitle" class="title"></div>
+   <div id="songArtist" class="artist"></div>
+  </div>
+  <div id="lyrics" class="lyrics"></div>
+  <div class="source">Letra obtenida mediante LRCLIB</div>
+ </div>
+ <div class="controls">
+  <button id="backBtn">← Buscar</button>
+  <button id="smaller">A−</button>
+  <button id="larger">A＋</button>
+  <button id="up">▲</button>
+  <button id="autoBtn">▶ Auto</button>
+  <button id="down">▼</button>
+  <select id="speed">
+   <option value="85">Muy lenta</option>
+   <option value="52" selected>Lenta</option>
+   <option value="31">Media</option>
+   <option value="18">Rápida</option>
+  </select>
+  <button id="theme">◐</button>
+  <button id="fullscreen">⛶</button>
+ </div>
+</section>
+
+<script>
+const API='https://lrclib.net/api/search';
+const searchPage=document.getElementById('searchPage');
+const viewerPage=document.getElementById('viewerPage');
+const query=document.getElementById('query');
+const results=document.getElementById('results');
+const statusBox=document.getElementById('status');
+const webFallback=document.getElementById('webFallback');
+const stage=document.getElementById('stage');
+let size=Number(localStorage.getItem('letrak_v3_size')||38);
+let timer=null;
+
+function setSize(){
+ document.documentElement.style.setProperty('--size',size+'px');
+ localStorage.setItem('letrak_v3_size',size);
+}
+setSize();
+
+function cleanSyncedLyrics(text){
+ if(!text)return '';
+ return text
+  .split('\n')
+  .map(line=>line.replace(/^\s*(\[\d{1,3}:\d{2}(?:\.\d{1,3})?\])+\s*/g,''))
+  .join('\n')
+  .replace(/\n{3,}/g,'\n\n')
+  .trim();
+}
+
+async function searchSongs(){
+ const q=query.value.trim();
+ if(!q){statusBox.textContent='Escribe el título de una canción.';query.focus();return}
+ stopAuto();
+ results.innerHTML='';
+ webFallback.style.display='none';
+ statusBox.textContent='Buscando «'+q+'»…';
+ document.getElementById('searchBtn').disabled=true;
+ try{
+  const response=await fetch(API+'?q='+encodeURIComponent(q),{
+   headers:{'Accept':'application/json'}
+  });
+  if(!response.ok)throw new Error('Respuesta '+response.status);
+  const data=await response.json();
+  const usable=(Array.isArray(data)?data:[]).filter(x=>x.plainLyrics||x.syncedLyrics);
+  if(!usable.length){
+   statusBox.textContent='No se ha encontrado una letra en el catálogo. Puedes buscarla en la web original.';
+   webFallback.style.display='block';
+   results.innerHTML='<div class="empty">Prueba añadiendo el cantante o revisando el título.</div>';
+   return;
+  }
+  statusBox.textContent='Se han encontrado '+usable.length+' resultados. Elige uno:';
+  usable.forEach((song,index)=>{
+   const b=document.createElement('button');
+   b.className='result';
+   b.innerHTML=
+    '<div class="result-title">'+esc(song.trackName||'Sin título')+'</div>'+
+    '<div class="result-meta">'+esc(song.artistName||'Artista desconocido')+
+    (song.albumName?' · '+esc(song.albumName):'')+
+    (song.syncedLyrics?' · Letra sincronizada':' · Letra normal')+'</div>';
+   b.onclick=()=>openSong(song);
+   results.appendChild(b);
+  });
+ }catch(err){
+  statusBox.textContent='No se ha podido conectar con el servicio de letras. Puedes buscarla directamente en la web.';
+  webFallback.style.display='block';
+  results.innerHTML='<div class="empty">Comprueba que tienes conexión a Internet y vuelve a intentarlo.<br><br>Detalle: '+esc(err.message)+'</div>';
+ }finally{
+  document.getElementById('searchBtn').disabled=false;
+ }
+}
+
+function openSong(song){
+ const text=(song.plainLyrics||cleanSyncedLyrics(song.syncedLyrics)||'').trim();
+ document.getElementById('songTitle').textContent=song.trackName||'Sin título';
+ document.getElementById('songArtist').textContent=song.artistName||'';
+ document.getElementById('lyrics').textContent=text||'La letra no está disponible.';
+ searchPage.style.display='none';
+ viewerPage.style.display='block';
+ stage.scrollTop=0;
+ window.scrollTo(0,0);
+}
+
+function back(){
+ stopAuto();
+ viewerPage.style.display='none';
+ searchPage.style.display='block';
+ window.scrollTo(0,0);
+}
+function esc(t){
+ const d=document.createElement('div');d.textContent=t||'';return d.innerHTML;
+}
+function stopAuto(){
+ if(timer)clearInterval(timer);
+ timer=null;
+ document.getElementById('autoBtn').textContent='▶ Auto';
+}
+function toggleAuto(){
+ if(timer){stopAuto();return}
+ const delay=Number(document.getElementById('speed').value);
+ timer=setInterval(()=>{
+  stage.scrollTop+=1;
+  if(stage.scrollTop+stage.clientHeight>=stage.scrollHeight-2)stopAuto();
+ },delay);
+ document.getElementById('autoBtn').textContent='⏸ Pausa';
+}
+async function fullscreen(){
+ try{
+  if(!document.fullscreenElement)await document.documentElement.requestFullscreen();
+  else await document.exitFullscreen();
+ }catch(e){alert('Este navegador no permite activar la pantalla completa.')}
+}
+
+document.getElementById('searchBtn').onclick=searchSongs;
+webFallback.onclick=()=>{
+ const q=query.value.trim();
+ if(q) window.open('https://www.google.com/search?q='+encodeURIComponent(q+' letra canción'),'_blank');
+};
+query.addEventListener('keydown',e=>{if(e.key==='Enter')searchSongs()});
+document.getElementById('backBtn').onclick=back;
+document.getElementById('smaller').onclick=()=>{size=Math.max(22,size-4);setSize()};
+document.getElementById('larger').onclick=()=>{size=Math.min(92,size+4);setSize()};
+document.getElementById('up').onclick=()=>stage.scrollBy({top:-300,behavior:'smooth'});
+document.getElementById('down').onclick=()=>stage.scrollBy({top:300,behavior:'smooth'});
+document.getElementById('autoBtn').onclick=toggleAuto;
+document.getElementById('theme').onclick=()=>stage.classList.toggle('light');
+document.getElementById('fullscreen').onclick=fullscreen;
+
+document.addEventListener('keydown',e=>{
+ if(viewerPage.style.display!=='block')return;
+ if(e.key==='ArrowDown'){e.preventDefault();stage.scrollBy({top:220,behavior:'smooth'})}
+ if(e.key==='ArrowUp'){e.preventDefault();stage.scrollBy({top:-220,behavior:'smooth'})}
+ if(e.key==='Escape'||e.key==='Backspace'){e.preventDefault();back()}
+});
+</script>
+</body>
+</html>
