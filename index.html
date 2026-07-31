@@ -1,14 +1,14 @@
 <!doctype html>
-<html lang="es">
+<html lang="eu">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <meta name="theme-color" content="#0b0b0d">
-<title>LETRAK · Buscador y favoritos</title>
+<title>SANINAZIO 26 · LETRAK</title>
 <style>
 :root{
   --bg:#0b0b0d; --panel:#17171b; --panel2:#222228; --text:#fff;
-  --muted:#b8b8c2; --accent:#ffd84d; --line:#3a3a43; --danger:#ff6b6b;
+  --muted:#b8b8c2; --accent:#ffd84d; --line:#3a3a43;
 }
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
@@ -16,7 +16,9 @@ button,input{font:inherit}
 header{padding:24px 18px 20px;background:#121216;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
 .wrap{max-width:860px;margin:auto}
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brandline{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
 h1{margin:0;font-size:38px;letter-spacing:.3px}
+.event{font-size:19px;font-weight:900;color:var(--accent);letter-spacing:1px}
 .tagline{margin-top:5px;color:var(--muted);font-size:16px}
 .iconbtn{width:48px;height:48px;border-radius:14px;border:1px solid #4b4b56;background:#222228;color:#fff;font-size:22px;font-weight:800}
 main{padding:22px 16px 42px}
@@ -78,6 +80,7 @@ button{
   .grid{grid-template-columns:1fr}
   .full{grid-column:auto}
   h1{font-size:34px}
+  .event{font-size:17px}
   .item{grid-template-columns:1fr auto}
   .item .remove{display:none}
 }
@@ -87,55 +90,58 @@ button{
 <header>
   <div class="wrap topbar">
     <div>
-      <h1>🎵 LETRAK</h1>
-      <div class="tagline">Busca, guarda y abre letras rápidamente</div>
+      <div class="brandline">
+        <h1>🎵 LETRAK</h1>
+        <div class="event">SANINAZIO 26</div>
+      </div>
+      <div class="tagline">Bilatu, gorde eta ireki abestien letrak azkar</div>
     </div>
-    <button id="helpBtn" class="iconbtn" aria-label="Ayuda">?</button>
+    <button id="helpBtn" class="iconbtn" aria-label="Laguntza">?</button>
   </div>
 </header>
 
 <main class="wrap">
   <section class="card">
-    <label for="q">Título y, si lo sabes, cantante</label>
-    <input id="q" placeholder="Ej.: Imagine John Lennon" autocomplete="off" autofocus>
+    <label for="q">Abestiaren izenburua eta, badakizu, abeslaria</label>
+    <input id="q" placeholder="Adib.: Imagine John Lennon" autocomplete="off" autofocus>
     <div class="actions">
-      <button id="searchBtn" class="primary">🔎 Buscar letra</button>
-      <button id="favCurrent" class="star" aria-label="Guardar en favoritos">☆</button>
+      <button id="searchBtn" class="primary">🔎 Bilatu letra</button>
+      <button id="favCurrent" class="star" aria-label="Gogokoetan gorde">☆</button>
     </div>
     <div class="hint">
-      El buscador abre resultados reales en páginas originales. Puedes guardar el título antes o después de buscar.
+      Bilatzaileak jatorrizko webguneetako emaitzak irekitzen ditu. Abestia bilatu aurretik edo ondoren gorde dezakezu.
     </div>
     <div id="status" class="status"></div>
   </section>
 
   <nav class="tabs">
-    <button class="tab active" data-tab="sources">Fuentes</button>
-    <button class="tab" data-tab="favorites">⭐ Favoritos</button>
-    <button class="tab" data-tab="history">🕘 Historial</button>
+    <button class="tab active" data-tab="sources">Iturriak</button>
+    <button class="tab" data-tab="favorites">⭐ Gogokoak</button>
+    <button class="tab" data-tab="history">🕘 Historia</button>
   </nav>
 
   <section id="sources" class="section active">
     <div class="grid">
       <button class="source" data-source="genius">
-        <span>🧠</span><div>Genius<small>Catálogo internacional</small></div>
+        <span>🧠</span><div>Genius<small>Nazioarteko katalogo zabala</small></div>
       </button>
       <button class="source" data-source="musixmatch">
-        <span>🎼</span><div>Musixmatch<small>Muchas canciones e idiomas</small></div>
+        <span>🎼</span><div>Musixmatch<small>Abesti eta hizkuntza ugari</small></div>
       </button>
       <button class="source" data-source="letras">
-        <span>🌎</span><div>Letras.com<small>Especialmente útil en castellano</small></div>
+        <span>🌎</span><div>Letras.com<small>Gaztelaniazko abestietarako bereziki erabilgarria</small></div>
       </button>
       <button class="source" data-source="azlyrics">
-        <span>🔤</span><div>AZLyrics<small>Catálogo amplio en inglés</small></div>
+        <span>🔤</span><div>AZLyrics<small>Ingelesezko katalogo zabala</small></div>
       </button>
       <button class="source" data-source="kantari">
-        <span>🔴</span><div>Kantari<small>Canciones en euskera</small></div>
+        <span>🔴</span><div>Kantari<small>Euskarazko abestiak</small></div>
       </button>
       <button class="source" data-source="youtube">
-        <span>▶️</span><div>YouTube karaoke<small>Vídeos con letra</small></div>
+        <span>▶️</span><div>YouTube karaokea<small>Bideoak eta letrak</small></div>
       </button>
       <button class="source full" data-source="google">
-        <span>🌐</span><div>Búsqueda general<small>La opción más universal</small></div>
+        <span>🌐</span><div>Bilaketa orokorra<small>Aukerarik unibertsalena</small></div>
       </button>
     </div>
   </section>
@@ -148,21 +154,21 @@ button{
     <div id="historyList" class="list"></div>
   </section>
 
-  <div class="footer">SANINAZIO26 · LETRAK v2</div>
+  <div class="footer">SANINAZIO 26 · LETRAK v2</div>
 </main>
 
 <div id="helpModal" class="modal" role="dialog" aria-modal="true">
   <div class="sheet">
-    <h2>Proyectar con el Fire TV</h2>
+    <h2>Fire TV bidez proiektatu</h2>
     <div class="steps">
-      <p><strong>1.</strong> En el Fire TV abre:</p>
-      <p><span class="badge">Configuración</span><span class="badge">Pantalla y sonido</span><span class="badge">Duplicación de pantalla</span></p>
-      <p><strong>2.</strong> En el móvil abre:</p>
-      <p><span class="badge">Proyección inalámbrica</span> o <span class="badge">Transmitir pantalla</span></p>
-      <p><strong>3.</strong> Selecciona el Fire TV.</p>
-      <p><strong>4.</strong> Busca una canción en LETRAK y abre la página original. El proyector mostrará lo mismo que ves en el móvil.</p>
+      <p><strong>1.</strong> Fire TVn ireki:</p>
+      <p><span class="badge">Ezarpenak</span><span class="badge">Pantaila eta soinua</span><span class="badge">Pantaila bikoiztea</span></p>
+      <p><strong>2.</strong> Mugikorrean ireki:</p>
+      <p><span class="badge">Haririk gabeko proiekzioa</span> edo <span class="badge">Pantaila transmititu</span></p>
+      <p><strong>3.</strong> Aukeratu Fire TV.</p>
+      <p><strong>4.</strong> Bilatu abesti bat LETRAKn eta ireki jatorrizko webgunea. Proiektoreak mugikorrean ikusten duzun gauza bera erakutsiko du.</p>
     </div>
-    <button id="closeHelp" class="close">Entendido</button>
+    <button id="closeHelp" class="close">Ulertuta</button>
   </div>
 </div>
 
@@ -210,7 +216,7 @@ function toggleFavorite(term){
   save(FAVORITES_KEY,list);
   updateFavButton();
   renderFavorites();
-  showStatus(exists?'Eliminada de favoritos.':'Guardada en favoritos.');
+  showStatus(exists?'Gogokoetatik kendu da.':'Gogokoetan gorde da.');
 }
 function isFavorite(term){
   return load(FAVORITES_KEY).some(x=>same(x,normalize(term)));
@@ -226,11 +232,11 @@ function showStatus(text){
 }
 function openSearch(source='google',forcedTerm=null){
   const term=normalize(forcedTerm ?? q.value);
-  if(!term){showStatus('Escribe primero el título de una canción.');q.focus();return}
+  if(!term){showStatus('Idatzi lehenik abesti baten izenburua.');q.focus();return}
   q.value=term;
   addHistory(term);
   updateFavButton();
-  showStatus('Abriendo resultados para: '+term);
+  showStatus('Emaitzak irekitzen: '+term);
   const query=searches[source](term);
   window.location.href='https://www.google.com/search?q='+encodeURIComponent(query);
 }
@@ -246,13 +252,13 @@ function makeItem(term,kind){
   const star=document.createElement('button');
   star.className='smallbtn';
   star.textContent=isFavorite(term)?'★':'☆';
-  star.title='Favorito';
+  star.title='Gogokoa';
   star.onclick=()=>toggleFavorite(term);
 
   const remove=document.createElement('button');
   remove.className='smallbtn remove';
   remove.textContent='×';
-  remove.title='Eliminar';
+  remove.title='Ezabatu';
   remove.onclick=()=>{
     if(kind==='history'){
       save(HISTORY_KEY,load(HISTORY_KEY).filter(x=>x!==term));
@@ -268,13 +274,13 @@ function makeItem(term,kind){
 function renderHistory(){
   const list=load(HISTORY_KEY);
   historyList.innerHTML='';
-  if(!list.length){historyList.innerHTML='<div class="empty">Todavía no hay búsquedas guardadas.</div>';return}
+  if(!list.length){historyList.innerHTML='<div class="empty">Oraindik ez dago bilaketarik gordeta.</div>';return}
   list.forEach(term=>historyList.appendChild(makeItem(term,'history')));
 }
 function renderFavorites(){
   const list=load(FAVORITES_KEY);
   favoritesList.innerHTML='';
-  if(!list.length){favoritesList.innerHTML='<div class="empty">Todavía no has guardado canciones favoritas.</div>';return}
+  if(!list.length){favoritesList.innerHTML='<div class="empty">Oraindik ez duzu gogoko abestirik gorde.</div>';return}
   list.forEach(term=>favoritesList.appendChild(makeItem(term,'favorites')));
 }
 
